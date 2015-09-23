@@ -1,0 +1,137 @@
+// OS test. The product will be 400 lines
+
+// Credit to Triveri for the OS.animations
+var OS = [];
+OS.lockscreen = [];
+OS.time = [];
+OS.lockscreen.slideValue = 0;
+OS.apps = [];
+OS.apps.notificationCenter = [];
+OS.apps.notificationCenterPos = 0;
+OS.apps.notificationCenterBlur = createGraphics(width, height, P2D);
+var OS_Animate = 300;
+var gameState = "Menu";
+var overButton;
+var v = color(219, 219, 219);
+var vb = color(255, 255, 255);
+var drawButton = function(buttonText, x, y, length, color, buttonHeight) {
+    var val = v;
+    overButton = false;
+    noStroke();
+    fill(0, 0, 0, 100);
+    rect(x - 2, y + 2, length, buttonHeight + 1, 3);
+    if (mouseX >= x && mouseX <= x + length && mouseY >= y && mouseY <= y + buttonHeight) {
+        val = vb;
+        overButton = true;
+    }
+    fill(val);
+    rect(x, y, length, buttonHeight, 2);
+    textAlign(CENTER, CENTER);
+    fill(0, 0, 0);
+    textSize(35);
+    text(buttonText, x + length / 2, y + buttonHeight / 2);
+};
+var buttonPressed = false;
+var buttonWidth = 0;
+draw = function() {
+    if(gameState === "Menu"){
+        buttonWidth+=0.5;
+        if(buttonWidth>174){
+            buttonWidth = 174;
+        }
+    background(255, 0, 0);
+    textFont(createFont("Segoe UI Light"));
+    pushMatrix();
+    noFill();
+    popMatrix();
+    OS.time.minute = minute();
+    OS.time.hour = hour();
+    OS.time.hour = OS.time.hour === 0 ? 12 : OS.time.hour > 12 ? OS.time.hour - 12 : OS.time.hour;
+    if (OS.time.minute < 10) {
+        OS.time.minute = "0" + OS.time.minute;
+    }
+    textAlign(CENTER, CENTER);
+    textFont(createFont("Segoe UI Light", 100));
+    noStroke();
+    image(getImage("landscapes/clouds-from-plane"), 0, 0);
+    pushMatrix();
+    OS_Animate /= 1.2;
+    textAlign(CENTER, CENTER);
+    noStroke();
+    textFont(createFont("Segoe UI Light"), 50);
+
+    translate(OS_Animate, 0);
+    drawButton("Home", 16, 168, buttonWidth, 5, 58);
+    if (overButton && mouseIsPressed) {
+        gameState = "Home";
+    }
+    drawButton("Reboot", 216, 168, buttonWidth, 5, 58);
+    if (overButton && mouseIsPressed) {
+        gameState = "Reboot";
+    }
+    drawButton("Open KH", 16, 253, buttonWidth, 5, 58);
+    if (overButton && mouseIsPressed) {
+        gameState = "OpenTerm";
+    }
+    drawButton("Sound", 216, 253, buttonWidth, 5, 58);
+    if (overButton && mouseIsPressed) {
+        gameState = "externalSound";
+    }
+    stroke(255);
+    fill(201, 201, 201, 100);
+    rect(width / 2 - 154, height / 2 - 174, 300, 111, 20);
+    fill(255);
+    popMatrix();
+    fill(255);
+    textSize(52);
+    text(OS.time.hour + ":" + OS.time.minute, width / 2 + OS.lockscreen.slideValue, 65);
+    textSize(20);
+    pushMatrix();
+    translate(0, -OS_Animate);
+    var dd = day();
+    var mm = month();
+    var yy = year();
+    textSize(30);
+    text(mm + "/" + dd + "/" + yy, 201, 108);
+    popMatrix();
+    stroke(255, 255, 255, 100);
+    strokeWeight(6);
+    line(width / 2 - 20, 10, width / 2 + 20, 10);
+    line(width / 2 - 20, height - 10, width / 2 + 20, height - 10);
+
+    noStroke();
+    textSize(10);
+    textAlign(LEFT, TOP);
+    text("XenOS 5.6", 2, 2);
+    pushMatrix();
+    translate(0, OS.apps.notificationCenterPos - height);
+    image(OS.apps.notificationCenterBlur, 0, 0);
+    fill(0, 0, 0, 200);
+    rect(0, 0, width, height);
+    popMatrix();
+    pushMatrix();
+    noFill();
+    stroke(255, 255, 255);
+    strokeWeight(3);
+    popMatrix();
+    fill(255, 255, 255);
+    textSize(20);
+    text(">", mouseX + -6, mouseY + -14);
+    strokeWeight(3);
+    stroke(255, 255, 255);
+    line(pmouseX, pmouseY, mouseX, mouseY);
+    }
+    if(gameState === "Home"){
+        background(255, 0, 0);
+    }
+    if(gameState === "Reboot"){
+        background(0, 255, 255);
+    }
+};
+mouseOver = function() {
+    OS.apps.notificationCenterBlur.image(get(0, 0, width, height), 0, 0);
+    OS.apps.notificationCenterBlur.filter(BLUR, 5);
+};
+mouseClicked = function() {
+    OS.apps.notificationCenterPos = mouseY;
+};
