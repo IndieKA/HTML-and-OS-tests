@@ -1,0 +1,666 @@
+/**
+ * @BJTHEDEVELOPER helped me with home screen...
+ * @Updates: 
+ *      [+]Added better home screen
+ *      [+]More reasonable patch fixes.
+ *      [+]New apps!
+ *      [Hint this isn't mine]
+*/
+var f = createFont("Calibri");
+var Status = "Menu";
+var wKeys = [], keys = [];
+var Menu = {
+    start: false,    
+};
+var windowInteractable = true;
+var ableToInteractWithWindows = function(x, y, w, h) {
+    if(mouseX > x && mouseY > y && mouseX < x+w && mouseY < y+h) {
+    windowInteractable = false;
+    } else {
+        windowInteractable = true;
+    }
+};
+var WindowsLogo = function(x, y, scale) {
+    noStroke();
+    rectMode(CENTER);
+    fill(255, 0, 0); //RED
+    rect(x-(5*scale), y-(5*scale), 10*scale, 10*scale);
+    fill(0, 255, 0); //GREEN
+    rect(x+(5*scale), y-(5*scale), 10*scale, 10*scale);
+    fill(0, 0, 255); //BLUE
+    rect(x-(5*scale), y+(5*scale), 10*scale, 10*scale);
+    fill(255, 255, 0); //YELLOW
+    rect(x+(5*scale), y+(5*scale), 10*scale, 10*scale);
+    rectMode('');
+};
+var BG_IMG = function() {
+    background(115, 115, 115);
+};
+var myHour = function() {
+    if(hour() > 12) {
+        return hour()-12;
+    } else {
+        return hour();
+    }
+};
+var myMinute = function() {
+    if(minute() > 9) {
+        return minute();
+    } else {
+        return "0"+minute();
+    }
+};
+var mySecond = function() {
+    if(second() > 9) {
+        return second();
+    } else {
+        return "0"+second();
+    }
+};
+var Icon = [];
+var Window = [];
+var windowGrabbed = false;
+var windowSizing = false;
+var overButton = false;
+var doubleBuffer = {
+    drawWindow: true, //If true, removes flickering when closing windows
+};
+var sounds = {
+    volume: 1,
+    closeWindow: getSound("rpg/water-slosh"),  
+};
+var bClickable = false;
+var mouseIsClicked = false;
+var XPB1 = 15;
+var mouseIsClickedTimer = 0;
+var button = function(x, y, w, h, txt, tSize, clickable, XPB) {
+    fill(0, 194, 0);
+    strokeWeight(1);
+    stroke(29, 135, 29);
+    if(clickable) {
+        if(mouseX > x && mouseY > y && mouseX < x+w && mouseY < y+h) {
+            fill(0, 153, 0);
+            bClickable = true;
+        } else {
+            bClickable = false;
+        }
+    } else {
+        fill(0, 92, 6);
+    }
+        if(XPB) {
+            XPB1 = 15;
+        } else {
+            XPB1 = 0;
+        }
+        rect(x, y, w, h, XPB1);
+        noStroke();
+        rect(x, y, w-XPB1, h);
+        if(XPB) {
+        for(var i = 0; i < 20; i++){
+        noStroke();
+        //fill(0,0,0,(255/400)*(i*30));
+        fill(0, 255, 0, (255/400)*(i*20));
+        rect(x, i*-1 + y + 19, w, 1);
+        }    
+        }
+        fill(0);
+        textSize(tSize);
+        textAlign(CENTER, CENTER);
+        text(txt, x+w/2+(XPB1-5), y+h/2);
+        textAlign(LEFT, LEFT);
+        textSize('');
+};
+var createWindow = function(Name, DisplayName, X, Y, W, H) {
+    Window.push({
+    name: Name,
+    displayName: DisplayName,
+    x:X,
+    y:Y,
+    w:W,
+    h:H,
+    canDo: true,
+    
+    player: {
+        x: 4,
+        y: 12,
+    },
+    
+    extension: "",
+    notepadContents: "",
+    resizing: false,
+    resizingWidth: false,
+    resizingHeight: false,
+    
+    button: function(i, x, y, w, h, txt, tSize, clr1, clr2) {
+        fill(clr1);
+        if(mouseX > x && mouseY > y && mouseX < x+w && mouseY < y+h && !windowGrabbed && !windowSizing) {
+            fill(clr2);
+            Window[i].overButton = true;overButton = true;
+        } else {
+            Window[i].overButton = false;overButton = false;
+        }
+        rect(x, y, w, h);
+        textAlign(CENTER, CENTER);
+        fill(0);
+        text(txt, x+w/2, y+h/2);
+        textAlign(LEFT, LEFT);
+    },
+    selected: false,
+    dragging: false,
+    selProcessID: -1,
+    prevProcessID: -1,
+    processID: Window.length,
+    });
+    
+};
+var encryptText = function(txt) {
+    return txt;
+};
+var decryptText = function(txt) {
+    return txt;
+};
+var hoverID = 0;
+var mouseInWindow = function(i) {
+    if(mouseX > Window[i].x &&
+    mouseY > Window[i].y &&
+    mouseX < Window[i].x+Window[i].w &&
+    mouseY < Window[i].y+Window[i].h) {
+        return true;
+    } else {
+        return false;
+    }
+};
+var removeByIndex = function(arr, index) {
+    arr.splice(index, 1);
+};
+var ddf = function(array,idB){
+    this.old = array[idB];
+    removeByIndex(array,idB);
+    array.push(this.old);
+    return array;
+};
+var keyTyped = function() {
+    for(var i in Window) {
+        if(Window[i].name === "notepad.exe" && Window[i].selProcessID === Window[i].processID) {
+            Window[i].notepadContents += key.toString();
+            if(key.code === BACKSPACE) {
+                Window[i].notepadContents = Window[i].notepadContents.substring(0, Window[i].notepadContents.length-2);
+            }
+        }
+    }
+};
+var mouseHoverWindow = 0;
+var selectedWindow = 0;
+var windowSelected = false;
+var hoverResize = {
+    left: false,
+    both: false,
+    bottom: false,
+};
+var dodgeBox = [];
+var updateWindow = function() {
+    for(var i in Window) {
+    hoverID = 0;
+    Window[i].processID = parseFloat(i);
+    //println(hoverLength);
+//Selecting A Window
+    if(windowInteractable) {
+    if(mouseInWindow(i) && mouseIsClicked && mouseButton === LEFT) {
+    if(mouseIsClicked) {
+        Window[i].selected = true;
+        Window[i].prevProcessID = Window[i].processID;
+        Window[i].selProcessID = Window[i].processID;
+        windowSelected = true;
+        Window = ddf(Window, Window[i].prevProcessID); 
+    }
+    
+    } else if(!mouseInWindow(i) && mouseIsClicked) {
+        Window[i].selected = false;
+        windowSelected = false;
+        Window[i].selProcessID = -1;
+    }
+//Dragging Window
+    if(mouseX > Window[i].x && mouseY > Window[i].y && mouseX < Window[i].x+Window[i].w && mouseY < Window[i].y+12 && mouseIsClicked && mouseButton === LEFT && !windowGrabbed && !windowSizing) {
+        Window[i].dragging = true;
+        windowGrabbed = true;
+    }
+    //Right Resize
+    if(mouseX > (Window[i].x+Window[i].w)-5 && mouseY > Window[i].y && mouseX < (Window[i].x+Window[i].w)-1 && mouseY < Window[i].y+Window[i].h-10) {
+            hoverResize.right = true;
+        if(mouseIsPressed && !windowSizing && !windowGrabbed) {
+            Window[i].resizing = true;
+            windowSizing = true;
+            Window[i].resizeWidth = true;
+        }
+    }
+    //Corner Resize
+    if(dist(mouseX, mouseY, (Window[i].x+Window[i].w)-2, (Window[i].y+Window[i].h)-7) < 5) {
+            hoverResize.both = true;
+        if(mouseIsPressed && !windowSizing && !windowGrabbed) {
+            Window[i].resizing = true;
+            windowSizing = true;
+            Window[i].resizeWidth = true;
+            Window[i].resizeHeight = true;
+        }
+    }
+    //ellipse(Window[i].x+Window[i].w-2, Window[i].y+Window[i].h-7, 5, 5);
+    //Bottom Resize
+    if(mouseX > Window[i].x && mouseY > (Window[i].y+Window[i].h)-10 && mouseX < Window[i].x+Window[i].w-5 && mouseY < (Window[i].y+Window[i].h)-5) {
+        hoverResize.bottom = true;
+        if(mouseIsPressed && !windowSizing && !windowGrabbed) {
+            Window[i].resizing = true;
+            windowSizing = true;
+            Window[i].resizeHeight = true;
+        }
+    }
+    
+    if(hoverResize.both) {
+        cursor("se-resize");
+    }
+    if(hoverResize.bottom) {
+        cursor("s-resize");
+    }
+    if(hoverResize.right) {
+        cursor("e-resize");
+    }
+    //Actual Dragging Part
+    if(Window[i].dragging) {
+        Window[i].x += mouseX-pmouseX;
+        Window[i].y += mouseY-pmouseY;
+    }
+    if(Window[i].resizeWidth) {
+        Window[i].w += mouseX-pmouseX;
+    }
+    if(Window[i].resizeHeight) {
+        Window[i].h += mouseY-pmouseY;
+    }
+    
+    if(!mouseIsPressed) {
+        Window[i].dragging = false;
+        windowGrabbed = false;
+        windowSizing = false;
+        Window[i].resizing = false;
+        Window[i].resizeWidth = false;
+        Window[i].resizeHeight = false;
+    }
+    if(Window[i].h < 20) {
+        Window[i].h = 20;
+    }    
+    if(!mouseInWindow(i) && !mouseIsPressed) {
+        hoverResize.both = false;
+        hoverResize.right = false;
+        hoverResize.bottom = false;
+    }
+        if(!Window[i].resizing && !Window[i].dragging && !hoverResize.both && !hoverResize.bottom && !hoverResize.right) {
+            this.cursor(ARROW);
+        }
+        
+    }
+    }
+
+};
+var mT;
+var clicked;
+var overButton = false;
+var setWindowBounds= function(i , x, y, w, h) {
+    Window[i].x = x;
+    Window[i].y = y;
+    Window[i].w = w;
+    Window[i].h = h;
+};
+var WindowContents = function() {};
+WindowContents.testApp = function(i) {    
+    if(Window[i].name === "pwp.exe") {
+    var player = Window[i].player; //Local Variable
+    
+    //Content
+    translate(Window[i].x+4, Window[i].y+4);
+    fill(255);
+    rect(player.x, player.y, 20,20);
+    fill(0);
+    text("Arrow Keys - Movement", 2, Window[i].h-15);
+    textAlign(CENTER, CENTER);
+    text("v2.6-ish Released!", Window[i].w/2, Window[i].h/2);
+    resetMatrix();
+    textAlign(LEFT, LEFT);
+    if(player.x < 4) {
+        player.x = 4;
+    }
+    if(player.x > Window[i].w - 32) {
+        player.x = Window[i].w - 32;
+    }
+    if(player.y < 12) {
+        player.y = 12;
+    }
+    if(player.y > Window[i].h - 36) {
+        player.y = Window[i].h - 36;
+    }
+    
+    if(Window[i].selProcessID === Window[i].processID) {
+        if(wKeys[RIGHT]) {
+            player.x++;
+        }
+        if(wKeys[LEFT]) {
+            player.x--;
+        }
+        if(wKeys[UP]) {
+            player.y--;
+        }
+        if(wKeys[DOWN]) {
+            player.y++;
+        }
+    }
+    }
+};
+WindowContents.clockApp = function(i) {
+    if(Window[i].name === "date_time.exe") {
+        translate(Window[i].x, Window[i].y);
+        fill(0);
+        textSize(20);
+        textAlign(CENTER, CENTER);
+        text(myHour()+":"+myMinute()+":"+mySecond(), Window[i].w/2, Window[i].h/2+(5/2)); 
+        textAlign(LEFT, LEFT);
+        resetMatrix();
+    }
+};
+WindowContents.notepadApp = function(i) {
+    if(Window[i].name === "notepad.exe") {
+        translate(Window[i].x, Window[i].y);
+        fill(0);
+        textSize(20);
+        textAlign(LEFT, TOP);
+        if(millis()/12 % 50 > 25 && Window[i].selProcessID === Window[i].processID) {
+        Window[i].blink = "|";
+        } else {
+        Window[i].blink = "";
+        }
+        textSize(12);
+        textLeading(12);
+        text(Window[i].notepadContents+Window[i].blink, 7, 13, Window[i].w-18, Window[i].h-19);
+        textAlign(LEFT, LEFT);
+        resetMatrix();
+    }
+};
+var windowDeleted = false;
+var drawingWindows = true; 
+var drawWindowContents = function(i) {
+    {
+    if(Window[i].maximized) {
+        setWindowBounds(i, 0, 0, 400, 374);
+    }
+        
+    if(!Window[i].maximized) {
+    //Maximize Button
+    Window[i].button(i, Window[i].x+Window[i].w-22,Window[i].y+2,8,8, "-", 12, color(0, 255, 120), color(0, 255, 255));
+    if(Window[i].overButton && mouseIsClicked) {
+        setWindowBounds(i, 0, 0, 400, 374);
+        Window[i].maximized = true;
+    }
+    } else {
+    //Maximize Button
+    Window[i].button(i, Window[i].x+Window[i].w-22,Window[i].y+2,8,8, "=", 12, color(0, 255, 120), color(0, 255, 255));
+    if(Window[i].overButton && mouseIsClicked) {
+        setWindowBounds(i, 50, 50, 300, 264);
+        Window[i].maximized = false;
+    }
+    }
+    //Delete Button
+    Window[i].button(i, Window[i].x+Window[i].w-12,Window[i].y+2,8,8, "X", 12, color(252, 65, 65), color(255, 0, 0));
+    if(Window[i].overButton && mouseIsClicked) {
+        Window.splice(i, 1);
+        windowDeleted = true;
+        sounds.closeWindow.audio.playbackRate = 2.6;
+        sounds.closeWindow.audio.volume = sounds.volume;
+        playSound(sounds.closeWindow);
+    } else {
+        windowDeleted = false;
+    }
+    }//IGNORE THESE {} ENTIRELY
+    //Add Your Content To This Function. 
+    //AFTER THIS LINE!
+    WindowContents.testApp(i);
+    WindowContents.clockApp(i);
+    WindowContents.notepadApp(i);
+    
+    //BEFORE THIS LINE
+    textAlign(LEFT, LEFT);
+    textSize('');
+};
+var drawWindow = function() {
+    for(var i in Window) {
+        textSize(11);
+        stroke(0);
+        strokeWeight(1);
+        strokeCap(SQUARE);
+        fill(124, 154, 226);
+        if(Window[i].selProcessID === Window[i].processID) {
+        fill(17, 99, 200);
+        }
+        rect(Window[i].x, Window[i].y, Window[i].w, Window[i].h-4);   
+        for(var j = 0; j < 10; j++){
+            noStroke();
+            fill(0, 212, 235, (255/400)*(j*20));
+            rect(Window[i].x,j*-1+Window[i].y + 10,Window[i].w,1);
+        }
+        noStroke();
+        fill(200);
+        rect(Window[i].x+4, Window[i].y+12, Window[i].w-8, Window[i].h-(8+12));
+        drawWindowContents(i);
+        fill(13, 0, 255);
+       // rect(Window[i].x, Window[i].y, Window[i].w, 12);
+        textSize(11);
+        fill(0);
+        text(Window[i].displayName+Window[i].extension, Window[i].x+3, Window[i].y + 2, Window[i].w, height);
+        fill(255);
+        text(Window[i].displayName+Window[i].extension, Window[i].x+2, Window[i].y + 2, Window[i].w, height);
+        drawingWindows = true;
+    }
+    
+}; 
+var WindowsXP = {
+    username: "kennyS",  
+};
+var mouseInBox = function(x, y, w, h) {
+    if(mouseX > x && mouseY > y && mouseX < x+w && mouseY < y+h) {
+        return true;
+    } else {
+        return false;
+    }
+};
+var startMenu = function() {
+    stroke(6, 92, 184);
+    fill(26, 114, 214);
+    rect(-1,370,401,30);
+    for(var i = 0; i < 20; i++){
+        noStroke();
+        //fill(0,0,0,(255/400)*(i*30));
+        fill(0, 212, 235, (255/400)*(i*20));
+        rect(0,i*-1+390,400,1);
+    }    
+
+    button(0,371,60,27, "Start", 15, true, true);
+    if(mouseIsClicked && bClickable) {
+        Menu.start ^= true;
+    }
+    WindowsLogo(10,385,0.8);
+    stroke(5, 68, 135);
+    line(65, 370, 65, 400);
+    for(var i in Window) {
+        fill(7, 93, 179);
+        if(Window[i].selProcessID === Window[i].processID) {
+            fill(18, 121, 224);
+        }
+        rect(i*25+70, 375, 20, 20);
+        fill(0);
+        text(Window[i].displayName.substring(0, 2),i*25+72, 390);
+    }
+    if(Menu.start) {
+        if(!mouseInBox(0,210,160,189) && mouseIsClicked) {
+            Menu.start = false;
+        }
+        stroke(0, 60, 82);
+        //Blue Box
+        fill(0, 122, 166);
+        rect(0,210,160,159);
+        
+        //Menu Grad
+        for(var i = 0; i < 20; i++){
+            noStroke();
+            //fill(0,0,0,(255/400)*(i*30));
+            fill(0, 212, 235, (255/400)*(i*20));
+            rect(0,i*1+220,160,1);
+            
+            noStroke();
+            //fill(0,0,0,(255/400)*(i*30));
+            fill(0, 212, 235, (255/400)*(i*20));
+            rect(0,i*-1+365,160,1);
+        }
+        //Left Box
+        fill(240);
+        rect(0,240,80,108);
+        
+        //Right Box
+        fill(212, 240, 255);
+        rect(80,240,82,108);
+        line(80, 240, 80, 348);
+        stroke(255, 170, 0);
+        line(40, 241, 120, 241);
+        
+        textFont(createFont("Segoe UI Light"), 15);
+    
+        textAlign(LEFT, LEFT);
+        WindowsLogo(15,225,0.8);
+        fill(0);
+        text(WindowsXP.username, 32,231);
+        fill(255);
+        text(WindowsXP.username, 30,231);
+        //Actual Contents Within The Start Menu (Static "Objects" At The Moment)
+        
+        
+        
+        
+        ableToInteractWithWindows(0,210,160,159);
+    }
+};
+var startTimer = 0;
+var x = 0, text1 = 0, xspeed = 3, tspeed = 1;
+var Button = function(x, y, w, h, o, s){
+    resetMatrix();
+    translate(x, y);
+    if (dist(x, x, mouseX, mouseX)<w && dist(y, y, mouseY, mouseY)<h){
+        if (mouseIsPressed){
+            Status = o;
+
+        }
+                translate(random(-3, 3), random(-3, 3));
+
+        }
+    fill(255, 255, 255);
+    strokeWeight(5);
+    stroke(140, 140, 140);
+    rectMode(CENTER);
+    rect(0, 0, w, h);
+    fill(255, 255, 255);
+    fill(135, 135, 135);
+    textAlign(CENTER, CENTER);
+    text(o, 0, 0);
+    resetMatrix();
+};
+var WinLogo = function(s,t1,t2){
+    scale(s,s);
+    textSize(50);
+    translate(t1,t2);
+    stroke(206, 0, 0);
+    for (var i = 0; i < 50; i++) {
+        line(144+i, 84-(i*(2-(i/25))), 144+i, 134-(i*(2-(i/25))));
+    }
+    stroke(20, 190, 10);
+    for (var i = 0; i < 50; i++) {
+        line(203+i, 84+(i*(2-(i/25))), 203+i, 134+(i*(2-(i/25))));
+    }
+    stroke(0, 40, 240);
+    for (var i = 0; i < 50; i++) {
+        line(144+i, 146-(i*(2-(i/25))), 144+i, 196-(i*(2-(i/25))));
+    }
+    stroke(208, 208, 0);
+    for (var i = 0; i < 50; i++) {
+        line(203+i, 146+(i*(2-(i/25))), 203+i, 196+(i*(2-(i/25))));
+    }
+    resetMatrix();
+    
+};
+draw = function() {
+    if (Status === "Menu" || Status === "Menu"){
+    rectMode(CENTER);
+    textAlign(CENTER);
+    background(0, 0, 0);
+    WinLogo();
+    textFont(f);
+    textSize(20);
+    fill(255, 255, 255);
+    text("Windows 8",199,264);
+    fill(252, 249, 249);
+    stroke(255, 255, 255);
+textSize(20);
+text(text1 + ' %', 203, 244);
+fill(173, 173, 173);
+rect(208,299,300,30);
+fill(184, 184, 184);
+rect(204,299,x,30);
+
+x += xspeed;
+text1 += tspeed;
+if(x === 300){
+    xspeed=-0;
+    tspeed=0;
+    Button(308,359,150,50,"Continue");
+}
+}
+if (Status === "Continue"){
+    if(mT === 2) {
+        mouseIsClicked = true;
+    } else {
+        mouseIsClicked = false;
+    }
+    try {
+    if(mouseIsPressed) {mT++;} else {mT = 0;}
+    startTimer++;
+    background(13, 116, 161);
+    BG_IMG();
+    if(startTimer === 1) {
+        createWindow("date_time.exe", "Date & Time", 20, 20, 160, 90);
+        createWindow("pwp.exe", "Program Within Program", 20, 110, 160, 90);
+        createWindow("pwp.exe", "Program Within Program", 220, 110, 160, 90);
+        createWindow("notepad.exe", "Untitled - Notepad", 20, 200, 160, 90);
+    }
+    drawWindow();
+    if(doubleBuffer.drawWindow) {
+        drawWindow();
+    }
+    updateWindow();
+    startMenu();
+    } catch(GUI_FAIL) {
+    //    println("Windows XP has unexpectedly crashed.. if you think it shouldn't have happened, post it in the Tips & Thanks\n\n\n\n"+GUI_FAIL+"\n\n\n\n\n===============");
+        drawWindow();
+        if(!windowDeleted) {
+        startMenu();
+        }
+        print(GUI_FAIL);
+    }
+}
+};
+var keyPressed = function() {
+    if(!windowSelected) {
+        keys[keyCode] = true;
+    } else {
+        wKeys[keyCode] = true;
+    }
+    
+};
+var keyReleased = function() {
+    if(!windowSelected) {
+        keys[keyCode] = false;
+    } else {
+       wKeys[keyCode] = false;
+    }
+};
