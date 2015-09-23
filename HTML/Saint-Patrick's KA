@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+body{
+    background:rgb(9, 230, 105);
+    border: 3px outset rgb(255, 255, 255);
+}
+
+div {
+    font-family:Cursive;
+    text-align:CENTER;
+    border: 32px solid #a1a1a1;
+    border-color:green;
+    padding: 12px 41px; 
+    background: green;
+    width: 471px;
+}
+</style>
+</head>
+<div><h1>Happy St. Patrick's day!</h1><h3><em>If you're reading this right now I wish you a happy St. Patrick's day.</em></h3></div>
+<h2>Links that might cheer you up:</h2>
+<p><a href="http://mycommentcodes.com/comments/st-patricks-day/1.gif">St.Patrick's Day Gif</a></p>
+<p><a href="http://www.primarygames.com/holidays/st.patricksday/games.php">St.Patrick's Day Games</a></p>
+<p><a href="http://fun.familyeducation.com/st.-patricks-day/holidays/32935.html">St.Patrick's Day Kids Activities Ideas</a></p>
+<p>Latest Design: St.Patricks Day Clover by Ana Cruz</p>
+<body>
+<p align="center"> 
+      <canvas id="mycanvas"></canvas> 
+    </p>
+</body>
+<p>
+     <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+<script>
+var sketchProc = function(processingInstance) {
+with (processingInstance) {
+size(400, 400); 
+frameRate(30);
+fill(29, 79, 18);
+textSize(25);
+text("Happy St Patrick's Day!", 66, 56);
+rect(226, 296, 17, 78);
+noStroke();
+fill(68, 117, 0);
+bezier(227, 97, 109, 50, 144, 125, 226, 195);
+bezier(203, 97, 348, 50, 266, 150, 218, 208);
+bezier(229, 195, 90, 77, 89, 151, 117, 193);
+bezier(228, 195, 181, 247, 95, 301, 116, 190);
+bezier(230, 193, 204, 216, 118, 321, 240, 297);
+bezier(228, 192, 374, 316, 252, 318, 218, 286);
+bezier(226, 194, 365, 42, 339, 192, 333, 186);
+bezier(224, 192, 302, 248, 386, 267, 328, 169);
+    }};
+    var canvas = document.getElementById("mycanvas"); 
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+</p>
+</html>
