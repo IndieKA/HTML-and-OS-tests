@@ -1,0 +1,568 @@
+// This is a debug test made by Nate and me
+
+/************************************************************
+ * When making an app, follow these rules:
+ * 1. Make sure the app doesn't exceed over 600 lines of code.
+ * 2. Make the game a good game, something that isn't boring!
+ * 3. DO NOT SPACE YOUR PROGRAM. 
+ ************************************************************/
+/*```````````` ```````````````USE LINK BELOW FOR BEST VIEWING EXPERIENCE```````````````````````````*
+ *```https://www.khanacademy.org/computer-programming/ipad/4971592776024064?width=740&height=500```*
+ *`````````````````````````````````````````````````````````````````````````````````````````````````*/
+var keys = [];
+var keyPressed = function() {
+    keys[keyCode] = true;
+};
+var keyReleased = function() {
+    keys[keyCode] = false;
+};
+
+var mouseIn = function(x, y, w, h) {
+    if (mouseX > x && mouseY > y && mouseX < x + w && mouseY < y + h) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+/*var apps = [{
+        color: [255, 0, 0],
+        name: "Emoticon Jumper"
+    }, {
+        color: [166, 0, 255],
+        name: "Painter 2000"
+    }, {
+        color: [0],
+        name: "XY Graph"
+    }, {
+        color: [255, 213, 0],
+        name: "Space Path"
+    }, {
+        color: [0, 255, 50],
+        name: "Geo Dash"
+    }, {
+        color: [0, 255, 255],
+        name: "ColorFlap"
+    }
+
+];*/
+var geo={
+    megaNot: function(ky,list) {
+        var bool = true;
+        for(var i = 0;i<list.length;i++){
+            if(ky === list[i]){bool=false;}
+        }
+        return bool;
+    },
+    radius:0,
+    stroke:0.5,
+    colorFn:function(){
+        if(this.stroke>0){ strokeWeight(this.stroke);}
+        else{noStroke();}
+        if(typeof this.strokeColor === "number"){stroke(this.strokeColor);}
+        if((typeof this.fillColor) === "number"){fill(this.fillColor);}
+        if(typeof this.strokeColor === "number"){stroke(this.strokeColor);}
+        
+    },
+    nLine: function(gPoint1,gPoint2,color){
+        this.colorFn();
+        if(color){stroke(color);}
+        line(gPoint1[0],gPoint1[1],gPoint2[0],gPoint2[1]);  
+    },
+    nQuad: function(gPoint1,gPoint2,gPoint3,gPoint4){
+        this.colorFn();
+        quad(gPoint1[0],gPoint1[1],gPoint2[0],gPoint2[1], gPoint3[0],gPoint3[1],gPoint4[0],gPoint4[1]);
+    },
+    nRect: function(gPoint1,gPoint2,txt,txtSize){
+        this.colorFn();
+        rect(gPoint1[0],gPoint1[1],abs(gPoint1[0]-gPoint2[0]),abs(gPoint1[1]-gPoint2[1]));
+        if(txt){fill(txt[1]||0);if(txtSize){textSize(txtSize);}textAlign(CENTER,TOP);text(txt[0],gPoint1[0],gPoint1[1],abs(gPoint1[0]-gPoint2[0]),abs(gPoint1[1]-gPoint2[1]));}
+    },
+    nTri:  function(gPoint1,gPoint2,gPoint3){
+        this.colorFn();
+        this.nQuad(gPoint1,gPoint2,gPoint3,gPoint1);
+    }
+    
+};
+
+var windows = []; 
+frameRate(80);
+var window = function(config) {
+    windows.unshift(this);
+    
+    this.winX = config.winX || 20;
+    this.winY = config.winY || 20;
+    this.wid  = config.wid || 180;
+    this.hei  = config.hei || 180;
+    this.btnSize = config.btnSize || 20;
+    this.check = function(){
+        this.windowSelected = mouseX>=this.winX && mouseY>=this.winY&&(mouseX<(this.winX+this.wid))&&(mouseY<(this.winY+this.hei));
+        this.bottomWinSelected = mouseX>=this.winX+3 && mouseY>=this.winY+this.btnSize && mouseX<(this.winX+this.wid-6)&& mouseY<(this.winY+this.hei-6);
+        return this.windowSelected&&(!this.bottomWinSelected);
+    };
+    this.selected=false;
+    this.format = config.format || function() {fill(255, 0, 0,180);};
+    this.runtimes= 0;
+    this.variables={};
+    this.vars = function(varName,value) {
+        this.variables[varName]=value;
+    };
+    this.defaultDraw = function() {
+        
+        var winX=this.winX||20;
+        var winY=this.winY||20;
+        var wid=this.wid||180;
+        var hei=this.hei||180;
+        var btnSize=this.btnSize||20;
+        stroke(0, 0, 0,120);
+        this.format();
+        geo.nRect([winX,winY],[winX+wid,winY+hei+btnSize]); 
+        //geo.nRect([20,20],[200,200]);
+        
+        fill(91, 91, 252,105);
+        textSize(17);
+        geo.nRect([wid-btnSize*1+(winX),winY],[wid-btnSize*0+(winX),winY+btnSize],["×",255]);
+        //geo.nRect([180,20],[200,40],"×");
+        
+        fill(72, 240, 74,105);
+        geo.nRect([wid-btnSize*2+(winX),winY],[wid-btnSize*1+(winX),winY+btnSize],["▧",255]);
+        //geo.nRect([160,20],[180,40],"▧");
+        
+        fill(255, 255, 0,105);
+        geo.nRect([wid-btnSize*3+(winX),winY],[wid-btnSize*2+(winX),winY+btnSize],"-");
+        //geo.nRect([140,20],[160,40],"-");
+        fill(0, 0, 0);    
+    };
+    this.program = config.program ||function() {};
+    this.snaps=true;
+    this.paused=config.paused ||{
+        minimized:true
+    };
+    this.width=config.width||400;
+    this.height=config.height||400;
+    
+    this.draw= function() {
+        if(this.paused.minimized!==undefined&&this.paused.minimized===false)
+        {
+            this.defaultDraw();
+            pushMatrix();
+            translate(this.winX+3,this.winY+3+this.btnSize);
+            scale((this.wid-6)/this.width,(this.hei-6)/this.height);
+            if (typeof this.program === "function"){
+                var aFun= function() {
+                    this.width=400;this.height=400;
+                };
+                this.program(aFun);
+                if(this.snaps===true){
+                    this.snap=get(this.winX+3,this.winY+this.btnSize+3,this.wid-6,this.hei-6);
+                }
+                this.runtimes+=1;
+                if(this.runtimes>=this.MAX_VALUE-2){this.runtimes=0;}
+            }
+        popMatrix();
+        }
+    };
+};
+
+var topText= function(wind,txt,clr,size){
+    if(wind.paused.minimized!==true){
+            popMatrix();
+            popMatrix();
+            pushMatrix();
+            textSize(13);
+            fill(0);
+            translate(wind.winX+2,0);
+            if(clr!==undefined){
+                fill(clr);
+            }
+            if(size!==undefined){
+                scale(size,1);
+            }
+            textAlign(LEFT,TOP);
+            text(txt,0,wind.winY+2);
+            popMatrix();
+    }
+    wind.name=txt;
+};
+
+var win1 = new window({
+    hei: 180,
+    winY: 21,
+    format: function() {
+        topText(this,"WGraphs",color(0, 0, 0));
+        fill(235, 0, 0,180); stroke(0,0,0); strokeWeight(0.5);
+    },
+    init:false,
+    program: function(){
+        if(this.runtimes>0){this.snaps=false;image(this.snap,0,0,this.width,this.height);}
+        else{
+            // draw the axes
+            stroke(148, 148, 148);
+            line(0, this.height/2, this.width, this.height/2);
+            line(this.width/2, 0, this.width/2, this.height);
+            
+            strokeWeight(2);
+            stroke(0, 173, 23);
+            
+            
+            var f1 = {
+                lines:true,
+                pts:false,
+                thick1:2,
+                thick2:0.3,
+                moveX:0,
+                moveY:0,
+                fun: function(x){
+                    return 100*sin(x+this.moveX)+this.moveY;
+                },
+                minX:-200,
+                maxX:200,
+                done:false
+            };
+            var f2 = {
+                lines:true,
+                fun: function(x){
+                    return 100*cos(x);
+                },
+                minX:-200,
+                maxX:200,
+                done:false
+            };
+            
+            /**Add two defined functions (this adds f1 to f2)**/
+            var f3 = {
+                lines:true,
+                moveX:0,
+                moveY:0,
+                fun: function(x){
+                    return f1.fun(x+this.moveX)+f2.fun(x+this.moveX)+this.moveY;
+                },
+                minX:-200,
+                maxX:200,
+                done:false
+            };
+            
+            /*****Graph list of points (from negative 400 to postive 400)****/
+            var p1 = {
+                arrX:[1, 2, 3, 4, 5, 6, 7,  8,  9, 11],
+                arrY:[0, 1, 1, 2, 3, undefined, 8, 13, 21, 34], 
+                lines:true,
+                fun: function(x){
+                    return this.arrY[this.arrX.indexOf(x)];
+                },
+                minX:-200,
+                maxX:200,
+                done:false,
+            };
+            
+            /*****Fibonacci Sequence from x=0 to x=500*****/
+            var Fibo = {
+                thick1:5,
+                thick2:0.5,
+                lines:true,
+                
+                fun: function(x){
+                    var Phi =(1+sqrt(5))/2; 
+                    var phi2=(1-sqrt(5))/2;  
+                    return (pow(Phi,x) - pow(phi2,x))/sqrt(5);
+                },
+                minX:0,
+                maxX:200,
+                done:false,
+                by:1
+            };
+            
+            /*****Original Code*****/
+            /*
+                    y = -100 * tan(x*x);
+                    strokeWeight(2);
+                    point(x + 200, y + 200);
+                    strokeWeight(0.5);
+                    line(x+200,200+-100 * tan(pow(x-0.5,2)),x + 200, y + 200);
+                    x += 0.5;
+            */
+            
+            var graph = function(funct,origin) {
+                pushMatrix();
+                translate(origin[0],origin[1]);
+                if(funct.fun!==undefined && funct.done === false){
+                    if(funct.by===undefined){funct.by=10;}
+                    for(var x =funct.minX;x<funct.maxX;x+=funct.by){
+                        if(funct.fun(x)!==undefined){
+                            var y = funct.fun(x);
+                            strokeWeight(funct.thick1||3);
+                            if((funct.pts===undefined||funct.pts===true) && (y<this.height/2 && y>-this.height/2)){point(x, -y);}
+            
+                            strokeWeight(funct.thick2||0.5);
+                            if(funct.lines===true && (y<this.height/2 && y>-this.height/2)){if(funct.by>0){line(x-funct.by,-funct.fun(x-funct.by),x,-y);}}
+                        }
+                   }
+                   funct.done=true;
+                }
+                popMatrix();
+            };
+            
+            var RED = color(255,0,0);
+            var BLUE = color(0,0,255);
+            var GREEN = color(0,255,0);
+            var dORIGIN = [this.width/2,this.height/2];
+                fill(255, 255, 255,360);
+                rect(0,0,this.width,this.height);
+                stroke(BLUE);
+                graph(f1,dORIGIN);
+                
+                stroke(RED);
+                graph(f2,dORIGIN);
+                
+                stroke(GREEN);
+                graph(f3,dORIGIN);
+                
+                stroke(color(0, 225, 255));
+                graph(Fibo,dORIGIN);
+            }
+    }
+});
+var win2 = new window({
+    hei: 100,
+    winX:200,
+    winY:200,
+    width:(width),
+    height:(height),
+    format: function() {
+        topText(this,"Bookmarklet");
+        fill(201, 255, 250,160); stroke(0,0,0); strokeWeight(0.5);
+    },
+    program: function(aFun){
+        aFun();
+        if(this.runtimes===0){
+            fill(0, 0, 0,360);
+            rect(0,0,this.width,this.height);
+            this.snaps=false;
+        }
+        if(this.snap){
+            image(this.snap,0,0,this.width,this.height);
+        }
+        var DI = function(x,y,c){
+            switch(c){
+            case 1: image(getImage("avatars/leaf-blue"),x,y,30,30); break;
+            case 2: image(getImage("avatars/leaf-green"),x,y,30,30);break;
+            case 3: image(getImage("avatars/leaf-red"),x,y,30,30); break;
+            case 4: image(getImage("avatars/leaf-yellow"),x,y,30,30);break;
+            
+            }
+            
+        };
+        var DIL = 30; 
+        var R = this.runtimes; 
+        var x1 = 2; 
+        var y1 = 3; 
+        var x2 = 20; 
+        var y2 = 20; 
+        var x3 = 1.6; 
+        var y3 = 0.24; 
+        var x4 = 150; 
+        var y4 = 150; 
+        var x5 = 150; 
+        var y5 = 200;
+        fill(255, 255, 255);
+        rect(0,0,this.width,this.height);
+        for (var i = 0; i < DIL; i++) { 
+          DI((sin(R * x1 + i * x2 + x3) * x4 + x5),(cos(R * y1 + i * y2 + y3) * y4 + y5),1);
+          DI((sin(R * x1 + i * x2 + x3) * -x4 + x5),(cos(R * y1 + i * y2 + y3) * y4 + y5),2);
+        }
+    }
+});
+
+var win3 = new window({
+    paused:{minimized:true},
+    width:400,
+    height:400,
+    format: function() {
+        topText(win3,"Benchmark Window",color(0),0.9);
+        fill(239, 255, 115,160); stroke(0,0,0); strokeWeight(0.5);
+    },
+    program : function() {
+        fill(255, 255, 255);
+        rect(0,0,this.width,this.height);
+        textSize(29);
+        textAlign(CENTER,CENTER);
+        fill(255, 0, 0);
+        
+        text("Windows are paused when minimized :-)\n\u26fa\n"+this.runtimes,0,0,this.width,this.height);
+        textSize(12);
+        textAlign(LEFT,TOP);
+    }
+});
+cursor("none");
+var mouse= function() {
+    strokeWeight(0.5);
+    stroke(255, 255, 255);
+    fill(0, 0, 0);    
+    beginShape();
+    vertex(mouseX,mouseY);
+    vertex(mouseX,mouseY+20);
+    vertex(mouseX+5,mouseY+10);
+    vertex(mouseX+8,mouseY+15);
+    vertex(mouseX+15,mouseY+20);
+    endShape(CLOSE);
+};
+
+var onceOnly=true;
+var snapshot = get(0,0,400,400);
+var clicked=false;
+
+mouseReleased=function() {
+    clicked=false;
+    onceOnly=true;
+};
+
+
+var grad = function(from, to) {
+    for (var i = 0; i < height / 3; i++) {
+        strokeWeight(4);
+        stroke(lerpColor(from, to, i / (height / 3)));
+        line(0, i * 3, width, i * 3);
+    }
+};
+var background2 = function() {
+    grad(color(255, 255, 255), color(0, 221, 255));
+    noStroke();
+    fill(0, 109, 242);
+    rect(-2, 265, 411, 137);
+    fill(240, 240, 19);
+    rect(20, 20, 87, 87);
+    fill(239, 250, 85);
+    rect(27, 27, 75, 75);
+    fill(252, 252, 156);
+    rect(39, 38, 50, 50);
+    fill(89, 89, 89);
+    rect(0, 202, 400, 61);
+
+    fill(240, 240, 19);
+    rect(20, 355, 87, 87);
+    fill(239, 250, 85);
+    rect(27, 361, 75, 75);
+    fill(252, 252, 156);
+    rect(39, 372, 50, 50);
+    fill(89, 89, 89);
+
+
+    rect(-2, 204, 53, -60);
+    rect(55, 202, 42, -126);
+    rect(102, 226, 42, -126);
+    rect(140, 265, 64, -72);
+    rect(154, 223, 50, -189);
+    rect(55, 190, 42, -126);
+    rect(81, 230, 42, -48);
+    rect(207, 213, 54, -165);
+    rect(268, 206, 42, -126);
+    rect(300, 221, 50, -96);
+    rect(255, 262, 42, -79);
+    rect(365, 228, 42, -126);
+    fill(64, 63, 64);
+
+    rect(-29, 234, 461, 35);
+    rect(-2, 321, 53, -60);
+    rect(55, 373, 42, -126);
+    rect(102, 361, 42, -126);
+    rect(140, 306, 64, -72);
+    rect(154, 387, 50, -137);
+    rect(55, 376, 42, -126);
+    rect(81, 285, 42, -48);
+    rect(207, 370, 54, -135);
+    rect(268, 348, 42, -105);
+    rect(300, 311, 50, -68);
+    rect(255, 314, 42, -79);
+    rect(365, 368, 42, -126);
+};
+
+var selectedWin=[];
+var m=false;
+var namedWins={};
+var WINDOWSTORAGE=windows;
+var draw2= function() {
+    background(255, 255, 255);
+    image(snapshot,0,0,width,height);
+    var keys = Object.keys(windows);
+    var keyL=keys.length;
+    fill(255, 255, 255,180);
+    rect(20,20,width-40,height-40);
+        for (var i = 0; i < WINDOWSTORAGE.length; i++) {
+                WINDOWSTORAGE[i].format();
+                rect(75 + (i%4 * 64), 25*((i)-i%4)+25, 32, 32, 5);
+                noStroke();
+                fill(255);
+                rect(75 + (i%4 * 64)+20, 25*((i)-i%4)+25+20,0,0.1,-10);
+                fill(0, 0, 0);
+                textAlign(CENTER, BOTTOM);
+                textSize(11);
+                text(WINDOWSTORAGE[i].name||Object.keys(WINDOWSTORAGE)[i], 67 + (i%4 * 64), 25*((i)-i%4)+67, 49, 39);
+        
+        if (mouseIn(75 + ((i%4) * 64), 25*((i)-i%4)+25, 32, 32, 5) && !m && !clicked && mouseIsPressed) {
+                windows[keys[i]].paused.minimized =!windows[keys[i]].paused.minimized;
+                
+        }
+    }
+    if(mouseIsPressed){m=true;}else{m=false;}
+    for (var i = 0; i < keyL; i++) 
+    { 
+        windows[keys[i]].draw();
+        if(mouseIsPressed){
+            if(windows[keys[i]].check()){
+                if(!clicked){
+                    windows[keys[i]].clicked=true;
+                    selectedWin[0]=windows[keys[i]];
+                    selectedWin[1]=keys[i];
+                }
+                clicked=true; //Only one window dragged at a time
+            }
+        }
+        else{
+            clicked=false;
+        }
+        
+        if( windows[keys[i]].clicked){
+            
+            windows[keys[i]].winX-= ( windows[keys[i]].winX-mouseX+ windows[keys[i]].wid/2)/3;
+            windows[keys[i]].winY-= ( windows[keys[i]].winY-mouseY)/3;
+        }
+        if(clicked===false){
+            windows[keys[i]].clicked=false;
+        }
+        //Makes things easier:
+            //If a window is selected move to back (last drawn) of 'windows' array
+    }
+    var keys = Object.keys(windows);
+    
+    if((clicked&& selectedWin!==undefined) &&onceOnly){
+        if(selectedWin[0]){
+            var temp = selectedWin[1];
+            if(windows[temp]!==windows[keys[keyL]])
+            {
+                windows.splice(selectedWin[1], 1);
+                windows.push(selectedWin[0]);
+            }
+        }
+        onceOnly=false;
+    }
+    
+    
+    mouse();
+    
+};
+
+var curDraw = function() { //executes once, then gets overwritten :-)
+    background2();
+    snapshot = get(0,0,400,400);
+    
+    fill(255, 255, 255);
+    rect(0,0,width,height);
+    fill(0, 0, 0);
+    text("Loading"+Array(frameCount%10).join("."),width/2,height/2);
+    if(frameCount>90){
+        curDraw=draw2;
+    }
+};
+draw= function() {
+   curDraw(); 
+};
