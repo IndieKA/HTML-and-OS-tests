@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--Thanks for all the votes so far! This isn't finished but I hope you like it! -->
+<!--Pamela, I have been programming for a year now. I am compatible with JS (not the KA one, the REAL one!), HTML, and right now I'm learning JSON, jQuery, and Python.-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>So many Species!</title>
+        <style>
+        body{
+             background-image:url("https://www.kasandbox.org/programming-images/animals/horse.png");
+
+            border:8px groove rgb(128, 128, 128);
+        }
+        #caption{
+        background-color: rgb(255, 255, 255);
+        border: 12px groove rgb(176, 176, 176);
+        padding: 6px;
+        font-size:3em;
+        font-family:Cursive;
+        text-align:CENTER;
+            }
+        .boX{
+        font-size:1.5em;
+        font-family:Calibri;
+        text-align:CENTER;
+        margin-top:5px;
+        border-radius:8px;
+        width:600px;
+        background-color:rgb(161, 161, 161);
+        padding:11px;
+        -webkit-transform:scale(0.8);
+        -moz-transform:scale(0.8);
+        -ms-transform:scale(0.8);       
+        -o-transform:scale(0.8);
+        transform:scale(0.8);
+}
+        .boX:hover{
+        background-color:rgb(161,161,161);
+        -webkit-transform:perspective(800px)rotate3d(1,1,1,10deg);
+        -moz-transform:perspective(800px)rotate3d(1,0,0,10deg);
+        -ms-transform:perspective(800px)rotate3d(1,0,0,10deg);
+        -o-transform:perspective(800px)rotate3d(1,0,0,10deg);
+        transform:perspective(800px)rotate3d(1,0,0,10deg);
+}
+        </style>
+    </head>
+    <body>
+<div id = "caption">What Species Did I See?</div>
+<p>So for Contest: So Many Species, I decided not to just make a program with the species I observed, but a poem out of them! How cool is that? NOTE: I'm not a good poetry writer. This is one of the first times I have tested out poetry.<strong> Note: You can hover over the poems. Just put your cursor over it.</strong></p>
+<h1>First Section: The Animals I saw</h1>
+<div class = "boX">
+<p>When I looked outside,</p>
+<p>I noticed a small vibe,</p>
+<p>There I saw a small bird by the side,</p>
+<p>Sitting calmly as I spied.</p>
+<p>Then I turned to my back</p>
+<p>Only to hear one big howl</p>
+<p>That howl came from a dog</p>
+<p>Who was as fat as a bog!</p>
+<p>But then I heard a big gallop</p>
+<p>Oh my, I saw a horse who galloped!</p>
+<p>And then I realized</p>
+<p>What a wide species of animals</p>
+<p>Luckily they aren't cannibals!</p>
+<p></p>
+</div>
+<h2>Second Section: The Plants I saw</h2>
+<div class = "boX">
+    <p>When I looked outside</p>
+    <p>I noticed a redwood tree so high,</p>
+    <p>It almost reached the sky!</p>
+    <p>I also saw a sunflower</p>
+    <p>Who sadly was as dirty as gunpowder</p>
+    <p>Then, a weed appeared</p>
+    <p>I think it was growing as a seed.</p>
+    <p>I also saw a rose flower</p>
+    <p>So beautiful, it may have taken a shower!</p>
+    
+</div>
+<div id = "caption">Stats</div>
+<p>There were (3 animals here and 3 plants here) here</p>
+<p>The most in population were (Couldn't tell really, but for animals it was horses. I think I saw a bunch of them.)</p>
+<p>The least in population were (Dogs and roses. There were only one of them, sadly.)</p>
+<p></p>
+<div id = "caption">Other Facts</div>
+<p>I saw animals that could live on a farm. </p>
+    </body>
+</html>
