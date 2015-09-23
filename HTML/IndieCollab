@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Indie's Collaboration Team</title>
+    </head>
+    <style>
+        body{
+            background:rgb(168, 168, 168);
+        }
+        h1{
+            background-color:orange;
+            text-align:CENTER;
+            font-family:Tahoma;
+        }
+        h2{
+            text-align:JUSTIFY;
+            font-family:Calibri;
+        }
+        h3{
+            background:rgb(194, 194, 194);
+            font-family:Comic Sans MS;
+            text-align:CENTER;
+            font-size:2em;
+        }
+        h4{
+            background-color:white;
+            font-family:Comic Sans MS;
+            font-size:20px;
+        }
+    </style>
+    <body>
+        <h1>Indie's Help Request / Forum Page Info</h1>
+        <h2>About 3 months ago I had left Khan Academy mainly because of chores, and I had summer camp, which really stunk. Soon after a while I had returned in late August to check on and see how things are doing.</h2>
+        <h2>I had seen all my friend's profiles. They were all exceeding in quality and formation of their programs, and I asked myself, "Should I rejoin KA?" The question was harder than I thought, mainly because I had a bad reputation of oversocializing here (meaning I would be on for HOURS at a time.)</h2>
+        <h2>This topic brought a lot of attention from others. Some said "No way dude. You've been doing programming too much.", but some said "Go for it!" My final decision was, "Okay", with a minimum of an hour a day. Reasonable, right?</h2>
+        <h2>Now I'm back on Khan Academy and I'm going to start working on new programs and games again. But I can't always do it alone. I'm looking for collaborators of all ages to help me with new games as I am taking a new path to success.</h2>
+        <h2>Thank you for taking your time to read this. If you would like to sign up, please say so in the comments section. I will make a list soon on the members.</h2>
+        <h3>List of Members<h4>
+        <ul>
+            <li> Indie [admin]
+            <li> JavaLava [Gr8Programmer]
+            <li> IceSerpent
+            <li> R☣b☢₮ 4561/Shadowwalker/Cis112233
+            <li> Muhib Hussain [Gr8Programmer]
+            <li> Firestar
+            <li> KCF [Gr8Programmer]
+            <li> Chester Banks
+            <li> Splo
+            <li> Emory [Gr8Programmer]
+            <li> Blaze [Gr8Programmer]
+            <li> DenJackson [Gr8Programmer]
+            <li>-----------------
+            <li> KingKhan007 [Gr8Programmer] 
+            <li> TheChosenOne [Gr8Programmer]
+            <li> The #1 Base 2 Proponent [Gr8Programmer]
+            <li> Fazbear Corps [Gr8Programmer]
+            <li> Satisfied Soul [Gr8Programmer]
+            <li> #1 Human Proponent! [Gr8Programmer]
+            <li> DAVID [Gr8Programmer]
+            <li> Eykutan [Gr8Programmer]
+            <li> ignatio01 [Gr8Programmer]
+            <li> Fractal Designs
+            <li>
+        </ul>
+        </h4>
+        </h3>
+        <h3>Project Log</h3>
+        <h4>
+            <ul>
+                <li> First Project: Shadows of Seven: https://www.khanacademy.org/computer-programming/shadows-of-seven-wip/5468463402450944
+            </ul>
+        </h4>
+    </body>
+</html>
