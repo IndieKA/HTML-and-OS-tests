@@ -1,0 +1,72 @@
+// By Charkittycat. I will finish
+
+
+var apps = [
+    {
+        color: color(255,0,0),
+        name:"Emoticon Jumper", 
+        status: "Still deciding on design"
+    },
+    {
+        color: color(0,255,255),
+        name:"Minecraft", 
+        status: "Not drawn"
+    },
+    {
+        color: color(166,0,255),
+        name:"Painter 2000", 
+        status: "Done"
+    },
+    {
+        color:color(250),
+        name:"XY Graph", 
+        status: "Done"
+    },
+    {
+        color: color(255,213,0),
+        name:"Space Path", 
+        status: "Not drawn"
+    },
+];
+
+noStroke();
+/**Emoticon Jumper*/
+fill(apps[0].color);
+rect(134, 40, 32, 32, 5);
+/**Minecraft*/
+fill(apps[1].color);
+rect(198, 40, 32, 32, 5);
+//grass
+//stone
+/**Painter 2000*/
+fill(apps[2].color);
+rect(264, 40, 32, 32, 5);
+//line of paint
+stroke(0, 50, 255);
+strokeWeight(5);
+line(270, 65, 294, 69);
+//paintbrush
+noStroke();
+fill(219, 171, 129);
+bezier(270, 65, 294, 65, 275, 40, 269, 64);
+stroke(115, 82, 64);
+strokeWeight(6);
+line(280, 55, 290, 45);
+/**X/Y Graph*/
+stroke(0);
+strokeWeight(1);
+fill(apps[3].color);
+rect(328, 40, 32, 32, 5);
+//x-axis
+line(328, 60, 360, 60);
+//y-axis
+line(340, 40, 340, 72);
+//red dot
+strokeWeight(4);
+stroke(255, 0, 0);
+point(340, 60);
+/**Space Path*/
+noStroke();
+fill(apps[4].color);
+rect(134, 90, 32, 32, 5);
+//earth
