@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Red Vice</title>
+    <style>
+        body {
+            background: gray;
+            overflow-x: hidden;
+        }
+        h1 {
+            text-align: CENTER;
+            background: rgb(255, 255, 255);
+            border: ridge 14px;
+            border-color: red;
+            font-family: Segoe UI;
+        }
+        
+        h2 {
+            text-align: CENTER;
+            font-size: -6em;
+            background: red;
+        }
+        h3{
+            text-align:CENTER;
+            border:ridge;
+        }
+        .post {
+            font-size: 1.5em;
+            font-family: Calibri;
+            margin-top: -11px;
+            width: 3;
+            border-radius: 13px;
+            background:white;
+            border: outset;
+            padding: 11px;
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -ms-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            transform: scale(0.8);
+        }
+        
+        .post:hover {
+            transition:3s;
+            background-color: rgb(161, 161, 161);
+            -webkit-transform: perspective(800px)rotate3d(1, 1, 1, 10deg); 
+            -moz-transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+            -ms-transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+            -o-transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+            transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+            }
+        li {
+            background:rgb(214, 214, 214);
+            border:groove;
+            font-family:Segoe UI Light;
+        }
+    </style>
+</head>
+    <body>
+    <h1>Red Vice</h1>
+    <font color="white">
+        <h3>To join, you must have the following:
+            <ul>
+                <li>Good programming skills. </li>
+                <li>Willing to contribute.</li>
+                <li>Trying hard.</li>
+            </ul>
+        </h3>
+    </font>
+    <div align="center">
+        <div class="post">
+            <h2>List of Members</h2>
+            <ul>
+                <li>Inception </li>
+                <li>Patrick Z</li>
+                <li>The #1 Base-12 Proponent</li>
+                <li>Kaadmy</li>
+                <li>King Abdullah</li>
+                <li>Virus</li>
+                <li>TheChosenOne</li>
+                <li>Jake</li>
+                <li>Δανιαλ Αημαδ</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
