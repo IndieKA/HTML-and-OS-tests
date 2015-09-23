@@ -1,0 +1,393 @@
+// Credit to TheMysteriousPerson for some code, thanks also for the mouseXYPOS function!
+var time = "MM-DD-YYYY";
+var data = {
+    Username: "Guest",
+    Password: "login",
+};
+var screen = "Login";
+var load = 0;
+var loginTxT = "";
+var mX;
+var mY;
+var passwordLives = 2;
+var caps = false;
+var trigger = 0;
+var startb = false;
+var options = false;
+var internet = false;
+var libraries = false;
+var tabname = "";
+var gplay = false;
+var ytube = false;
+var intext = false;
+var zero = "";
+var keys = [];
+var posAssign = false;
+var mouseXYPOS = function(x,y,w,h){
+    return (mX > x & mY > y & mX < w & mY < h);
+};
+var closeButton = function(x1,y1,w,h,x2,y2){
+    fill(163, 163, 163);
+    rect(x1+270,y1+100,w+30,h+20);
+    textSize(17);
+    fill(0, 0, 0);
+    text("X",x2+280,y2+117);
+    if(mouseXYPOS(x1+270,y1+100,x1+270+w+30,y1+100+h+20)){
+        screen = "Desktop";
+        internet = false;
+        ytube = false;
+        gplay = false;
+    }
+};
+var chrome = function(){
+    rotate(-13);
+    fill(191, 191, 0);
+    arc(200, 200, 120, 120, 0, 120);
+    fill(212, 0, 0);
+    arc(200, 200, 120, 120, -120, 0);
+    fill(0, 181, 0);
+    arc(200, 200, 120, 120, -240, -120);
+    fill(255, 255, 255);
+    ellipse(200, 200, 60, 60); 
+    fill(62, 84, 194);
+    ellipse(200, 200, 50, 50); 
+    resetMatrix();
+};
+var draw = function() {
+                textFont(createFont("Tahoma"));
+    noStroke();
+    var time = [hour(),minute(),second(),day(),month(),year()];
+    var ap = "";
+    textFont(createFont("Segoe UI Light"),10);
+    if(time[0]>12){
+        time[0]-=12;
+    }
+    if (time[0]>11){
+        ap = "AM";
+    }
+    else{
+        ap = "PM";
+    }
+    switch(screen){
+        case "Login":
+            textFont(createFont("Tahoma"));
+            var passwordText = true;
+            
+            textAlign(CENTER,CENTER);
+            background(0, 0, 0);
+            image(getImage("landscapes/beach"),0,0,400,400);
+            fill(255, 255, 255);
+            textSize(48);
+            text(data.Username,200,212);
+            textSize(16);
+            text("Closed",200,245);
+            fill(255, 255, 255);
+            rect(130,270,135,30);
+            noFill();
+            ellipse(296,285,30,30);
+            fill(255, 255, 255);
+            rect(285,281,10,7);
+            triangle(295, 274, 307, 285, 295, 295);
+            textAlign(LEFT,LEFT);
+            fill(66, 66, 66);
+            textSize(13);
+            text(loginTxT,135,289);
+            if(mouseXYPOS(130,270,130+135,270+30)){
+                passwordText = false;
+            }
+            if(!mouseXYPOS(130,270,130+135,270+30)){
+                passwordText = true;
+            }
+            if(!mouseXYPOS(130,270,130+135,270+30) && loginTxT.length>0){
+                passwordText = false;
+            }
+            if(passwordText === true){
+                textAlign(LEFT,LEFT);
+                textSize(13);
+                fill(171, 171, 171);
+                text("Password",135,289);
+            }
+            if(loginTxT === data.Password){
+                passwordLives = 1;
+            }
+            if(loginTxT !== data.Password && passwordLives === 2){
+                passwordLives = 0;
+            }
+            if(keys[20]){
+                caps = true;
+            }else{
+                caps = false;
+            }
+            if(caps === true){
+                fill(255, 255, 255);
+                text("Caps Lock is ON",149,318);
+            }
+            
+            fill(255, 255, 255);
+            textSize(150);
+            text("O",150,167);
+            textSize(20);
+            fill(255, 255, 255);
+            text("Chrome OS",150,387);
+            if(mouseXYPOS(280,268,280+32,268+32) && passwordLives === 1){
+                screen = "Desktop";
+            }
+            if(mouseXYPOS(280,268,280+32,268+32) && passwordLives === 0){
+                screen = "Password Incorrect";
+            }
+            if(keys[10] && passwordLives === 1){
+                screen = "Desktop";
+            }
+            if(keys[10] && passwordLives === 0){
+                screen = "Password Incorrect";
+            }
+        break;  
+        case "Password Incorrect":
+            background(0, 0, 0);
+            image(getImage("landscapes/beach"),0,0,400,400);
+            textSize(20);
+            textAlign(LEFT,LEFT);
+            fill(255, 255, 255);
+            text("Windows 7",110,387);
+            textSize(15);
+            text("Home Premium",212,387);
+            textAlign(CENTER,CENTER);
+            textSize(31);
+            text("ERROR! The password was\nincorrect. You have 3 lives\ntotal.",200,163);
+            textSize(20);
+            fill(0, 0, 0);
+            rect(167,226,70,25,10);
+            fill(255, 255, 255);
+            text("OK",200,239);
+            if(mouseXYPOS(167,226,167+70,226+25)){
+                screen = "Login";
+                passwordLives = 2;
+            }
+        break;  
+        case "Desktop":
+            image(getImage("landscapes/beach"),0,0,400,400);
+            fill(255, 255, 255,110);
+            rect(0,364,401,36);
+            ellipse(19,381.5,32,32);
+            fill(255, 255, 255);
+            textSize(13);
+            text(time[0] + ":" + zero + time[1] + " " + ap,350,387);
+            if(time === "MM-DD-YYYY"){
+                text(time[4] + "/"  + time[3] + "/" + time[5],343,400);
+            }
+            if(time[1]<10){
+                zero = "0";
+            }else{
+                zero = "";
+            }
+            resetMatrix();
+            textSize(45);
+            fill(254, 255, 166);
+            rect(92,369,32,28,5);
+            fill(0, 0, 0);
+            textSize(25);
+            text("F",101,394);
+            scale(0.26,0.26);
+            translate(-1,1320);
+            chrome();
+            resetMatrix();
+            if(mouseXYPOS(90,365,90+35,365+35)){
+                libraries = true;
+            }
+            if(mouseXYPOS(48,365,48+35,365+35)){
+                internet = true;
+            }
+            if(mouseXYPOS(2,365,2+35,365+35)){
+                startb = true;
+            }
+            if(!mouseXYPOS(0,85,0+176,85+278) && !mouseXYPOS(2,365,2+35,365+35) && !mouseXYPOS(167,289,167+50,289+30) && !mouseXYPOS(167,319,167+50,319+30)){
+                startb = false;
+                options = false;
+            }
+            if(internet === true){
+                tabname = "New Tab";
+                fill(240, 240, 240, 200);
+                rect(0,33,400,331);
+                fill(255, 255, 255);
+                quad(29,10,0,33,100,33,71,10);
+                closeButton(99,-100,0,0,100,-100);
+                fill(0, 0, 0);
+                textSize(11);
+                text(tabname,32,29);
+                textSize(20);
+                text("Apps",180,64);
+                fill(0, 230, 192);
+                triangle(44, 150, 44, 100, 88, 125);
+                fill(255, 0, 0,200);
+                triangle(44, 150, 73, 116, 88, 125);
+                fill(225, 255, 0,190);
+                triangle(73, 133, 44, 100, 88, 125);
+                fill(0, 0, 0);
+                textSize(15);
+                text("Google Play",30,168);
+                text("Youtube",143,168);
+                fill(250, 68, 68);
+                rect(137,100,72,47,10);
+                fill(255, 255, 255);
+                triangle(163, 136, 163, 111, 189, 125);
+                fill(255, 0, 0,70);
+                if(mouseXYPOS(15,87,15+100,87+100)){
+                    gplay = true;
+                    internet = false;
+                }
+                if(mouseXYPOS(122,87,122+100,87+100)){
+                    ytube = true;
+                    internet = false;
+                }
+            }
+            if(gplay === true){
+                tabname = "Google Play";
+                fill(240, 240, 240, 200);
+                rect(0,33,400,331);
+                fill(255, 255, 255);
+                quad(29,10,0,33,100,33,71,10);
+                closeButton(100,-100,0,0,100,-100);
+                fill(0, 0, 0);
+                textSize(11);
+                text(tabname,24,24);
+                fill(189, 189, 189);
+                rect(0,33,400,40);
+                scale(0.5,0.5);
+                translate(-23,-16);
+                fill(0, 255, 213);
+                triangle(44, 150, 44, 100, 88, 125);
+                fill(255, 0, 0,200);
+                triangle(44, 150, 73, 116, 88, 125);
+                fill(225, 255, 0,190);
+                triangle(73, 133, 44, 100, 88, 125);
+                resetMatrix();
+                fill(196, 196, 196);
+                rect(169,41,147,25);
+                fill(122, 122, 122);
+                rect(316,41,40,25);
+                rotate(-50);
+                fill(0, 0, 0);
+                rect(175,295,2,10,5);
+                resetMatrix();
+                ellipse(335,51,10,10);
+                fill(255, 255, 255);
+                ellipse(335,51,7,7);
+                textSize(20);
+                fill(0, 0, 0);
+                text("Google Play",35,59);
+                textSize(25);
+                text("Best Selling App",25,109);
+                fill(150, 150, 150);
+                rect(10,132,75,75,10);
+                image(getImage("avatars/leaf-green"),13,137,70,70);
+                fill(0, 0, 0);
+                textSize(15);
+                text("Khan Academy",115,144);
+                text("Rating: 9000 out of 2.",138,197);
+                fill(166, 0, 0);
+                text("1.99",114,165);
+                fill(217, 0, 0);
+                rect(287,157,80,30);
+                textSize(18);
+                fill(255, 255, 255);
+                text("Buy",314,179);
+                if(mouseXYPOS(287,157,287+80,157+30)){
+                    intext = true;
+                }
+                if(intext === true){
+                    fill(77, 209, 81);
+                    rect(287,157,80,30);
+                    textSize(18);
+                    fill(255, 255, 255);
+                    text("Bought!",300,180);
+                }
+            }
+            if(ytube === true){
+                tabname = "Youtube";
+                fill(247, 247, 247);
+                rect(0,33,400,331);
+                fill(255, 255, 255);
+                quad(29,10,0,33,100,33,71,10);
+                closeButton(100,-100,0,0,100,-100);
+                fill(0, 0, 0);
+                textSize(11);
+                text(tabname,32,24);
+                fill(224, 224, 224);
+                rect(0,33,400,40);
+                textSize(18);
+                fill(0, 0, 0);
+                text("You",14,58);
+                fill(250, 68, 68);
+                rect(49,38,52,30,10);
+                fill(255, 255, 255);
+                text("Tube",58,58);
+                fill(196, 196, 196);
+                rect(109,41,200,25);
+                fill(181, 181, 181);
+                rect(309,41,50,25);
+                rotate(-50);
+                fill(0, 0, 0);
+                rect(175,295,2,10,5);
+                resetMatrix();
+                ellipse(335,51,10,10);
+                fill(255, 255, 255);
+                ellipse(335,51,7,7);
+                textSize(45);
+                fill(0, 0, 0);
+                text("Your internet \nis broken.",90,175);
+            }
+            if(startb === true){
+                fill(200,200,200,100);
+                rect(0,85,176,278,10);
+                fill(255, 255, 255,200);
+                rect(13,98,100,253,10);
+                rect(125,337,40,13,10);
+                fill(0, 0, 0);
+                textSize(30);
+                text("→",130,353);
+                textSize(20);
+                text("No Files \nFound :(",30,171);
+                if(mouseXYPOS(125,337,125+40,337+13)){
+                    options = true;
+                }
+                if(options === true){
+                    fill(255, 255, 255,200);
+                    rect(168,289,50,60);
+                    textSize(19);
+                    fill(0, 0, 0);
+                    text("Lock",176,315);
+                    stroke(133, 133, 133);
+                    line(215, 320, 168, 320);
+                    if(mouseXYPOS(167,289,167+50,289+30)){
+                        screen = "Login";
+                        trigger = 0;
+                    }
+                }
+            }
+            textSize(30);
+            fill(255, 255, 255);
+            text(">",mouseX+-9,mouseY+9);
+            strokeWeight(3);
+            stroke(255, 255, 255);
+            line(pmouseX, pmouseY, mouseX, mouseY);
+        break;    
+       
+    }
+};
+var keyPressed = function() {
+    keys[keyCode] = true;
+    if (screen === "Login"&&keyCode>64&&keyCode<91) {
+        loginTxT+=str(key);
+    }
+    if (screen === "Login"&&keyCode === DELETE || keyCode === BACKSPACE) {
+        loginTxT = loginTxT.subloginTxT(0, loginTxT.length-1);
+    }
+}; 
+var keyReleased = function(){
+    keys[keyCode] = false;
+};
+var mousePressed = function(){
+    mX = mouseX;
+    mY = mouseY;
+    debug(mX,mY);
+};
