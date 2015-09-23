@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Inception's Blog</title>
+        <style>
+             body {
+                background-color: gray;
+                overflow-x:hidden;
+            }
+            h1{
+                text-align:CENTER;
+                background:rgb(224, 224, 224);
+                border:ridge 14px;
+                font-family:Calibri;
+            }
+            h2{
+                text-align:CENTER;
+                font-size:-6em;
+                background:white;
+            }
+            marquee{
+                background:rgb(171, 171, 171);
+                font-size:30px;
+                font-family:Tahoma;
+            }
+            .post {
+                font-size: 1.5em;
+                font-family: Calibri;
+                margin-top: 5px;
+                border-radius: 13px;
+                background-color: rgb(161, 161, 161);
+                border:outset;
+                padding: 11px;
+                -webkit-transform: scale(0.8);
+                -moz-transform: scale(0.8);
+                -ms-transform: scale(0.8);
+                -o-transform: scale(0.8);
+                transform: scale(0.8);
+            }
+            .post:hover {
+                transition:3s;
+                background-color: rgb(161, 161, 161);
+                -webkit-transform: perspective(800px)rotate3d(1, 1, 1, 10deg); 
+                -moz-transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+                -ms-transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+                -o-transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+                transform: perspective(800px)rotate3d(1, 0, 0, 10deg);
+            }
+        </style>
+    </head>
+
+        <body>
+            <h1>Inception's blog</h1>
+            <marquee>Awesomeness!</marquee>
+            <div class = "post"><h2>Just updated my blog!</h2>If you haven't noticed, my blog today just got a big remodel! My old one was <em>really</em> messy, so this one is more organized and more fancier. Woo hoo!</div>
+            <div class = "post"><h2>800 votes on my iOS Pad! Woot!</h2>Wow! After long struggles my iOS Pad, my best program of all time, just reached 800 votes total! This means a lot to me, thank you so much guys!</div>
+            <div class = "post"><h2>New Game: Red & Blue</h2>Hey guys! I've just released my latest game, Red & Blue! It's a platformer, but not the boring kind. With awesome graphics, level select, a home screen, and even a SHOP, this game is probably my most worked on of all time! Link here: https://www.khanacademy.org/computer-programming/red-blue-platformer/5626114481455104</div>
+            <div class = "post"><h2>My First Post!</h2>So, this is my first post on my newly created blog. In here you will be receiving new game updates from me, what's hot, and what I've been doing lately. Thanks for visiting this!</div>
+
+
+        </body>
+
+    </html>
