@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- For lack of a better title right now... -->
+        <!-- As of right now, maceden is my unofficial editor ;) -->
+        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <title>Fixing CSS for Loki (aka CyborgSnake)</title>
+        <style>
+            p {
+                font-size:10pt;
+            }
+            h1 {
+                background-color:aqua;
+                color:black;
+                text-align:CENTER;
+                font-size:20pt;
+                margin-top:3px;
+                text-shadow: 0 0 1em rgb(255, 0, 0);
+            }
+            h2 {
+                text-align:CENTER;
+                background:black;
+                color:WHITE;
+                font-size:19pt;
+            }
+            *{
+                background-color:rgb(230, 230, 230);
+                font-family:'Lato';
+            }
+            ul {
+                list-style:none;
+            }
+            .smaller {
+                text-align:CENTER;
+                font-weight:normal;
+                font-size:17pt;
+            }
+            #subtitle {
+                text-align:CENTER;
+                font-family:'Lato';
+                font-size:13pt;
+            }
+            a {
+                font-weight:bold;
+                text-decoration:none;
+                background:white;
+            }
+            .trez {
+                font-family:Arial;
+                font-weight:normal;
+                color:orange;
+            }
+            p {
+                text-align:justify; 
+            }
+        </style>
+    </head>
+    <body>
+    <h1>Time Travel Novel By Loki</h1>
+    <hr>
+    <span id="subtitle">Genre: Fiction / Sci-Fi</span>
+    <p>
+    <span class="smaller">by Loki</span>
+    </p>
+    <h2>Table of Contents</h2>
+    <hr>
+    <ul>
+        <li><a href="#chapter1">Chapter 1</a> Ethro, Narrator; FTMD Genesis <b>(Tweaking...)</b></li>
+        <li><a href="#chapter2">Chapter 2</a> Ethro, Narrator; Error Code 2001 <b>(WIP)</b></li>
+        <li><a >Chapter 3</a> Ethro, Trez, NC(?); TBA</li>
+        <li><a >Chapter 4</a> TBA</li>
+        <li><a >Chapter 5</a> TBA</li>
+        <li> More chapters? TBA! Muahahahahaha! *coughs*</li>
+    </ul>
+    <div id="chapter1">
+        <h2 id="chapter1">Chapter 1 - FTMD Genesis</h2><hr>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;I had never really talked to anyone formally. I've waved at people that are a little over-outgoing but at most I've only said "Hi" to someone. I've been getting used to the customs here and they're... different than what I'm used to. Usually I just could ignore people but there was something wrong and I needed to talk to someone. There was an imbalance and I was looking for a certain person.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;It was raining, so I pulled my hood up on my sweatshirt and occasionally looked around. I don't know how suspicious I looked since nobody was aware of my presence. I'm not invisible but if I walked into a small group of people and kicked one of them, they'd think it was a cramp. Believe me, I do that all the time. I took a corner and started heading up a hill which brought me further away from the soaked downtown area. Name didn't matter to me; I wouldn't be staying there.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;It stopped raining after about an hour. I headed into some kind of public building and bought something minimal so I could stay there for a while. I had to turn off my half-invisability to order anything in the first place, if you were wondering.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;I started considering some other places where this person I was looking for might be. I didn't know any names or any kind of description. I just knew I'd know them when I saw them. It seems a little strange, but since it's happened so many times I've grown to ignore it. I sat down at a round table. It was fake wood which I personally don't care for but it wasn't a huge deal. People were coming and going in and out of the place which I had determined to be some kind of cafe of sorts. I gave someone what I had ordered (they gladly accepted it) and left.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Back on the sidewalk again, I studied most of the people on the street in a way that didn't make me stand out from everyone else. None of them really triggered anything so I kept walking down the sidewalk. I never really get tired because I just don't. I'll act like it if I'm in some kind of group of people just to match. (my half invisibility isn't perfect) Eventually I came across someone who caught my eye. I knew he would end up at a that restaurant up ahead so I took a corner and phased out of contact.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;The next day at about 10 in the morning I arrived at that restaurant. I knew he was already there, so I took a quick glance around, found where he was siting and sat down across from him in the same booth. He didn't seem to notice me, but then I remembered that my half invisibility was still doing it's thing. I disabled it and almost immediately he realized that I had sat across from him. It caught him by surprise though; he almost jumped out of his seat. I gave him a small wave and he made a kind of half wave back. He seemed uneasy and I didn't know how to comfort him so I just went off some random information I didn't know I knew and had a friendly conversation.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Hello," I said. I did not like how that sounded. I haven't talked formal-like or just really at all for a few decades. It was weird hearing my voice, or just what I was able to simulate.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Hey." They replied, sounding a little unsure. I found that their name was Ethro. That named seemed very distantly familiar but I kept talking.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Weather was kind of nasty yesterday wasn't it?" I gave a basic conversation point so that they would be more comfortable but there's only so much I can do. <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Wasn't a good day for anything outside, no. Why'd you sit right across from me?" Ethro seemed a little uneasy still. His business he was running was getting bad rap after a ton of failed projects. I was about to give him a little boost.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"How do you feel about Time Travel?" I asked. Maybe a bit too casually but then again I looked like some random teenager from the street. <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Well, I think the concept is neat but nobody has figured it out. Some people don't even want to figure out how." He seemed kind of passionate about the idea, but he looked like he was trying to hide it. He also seemed pretty confused as to what was going on.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Okay... If you had the chance to get access to all the technology you needed to make Time Travel possible, would you give it a shot?" I asked. He seemed excited but trying not to be. Probably so he wouldn't get his hopes up but there wasn't an issue with that in this case.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Well of course! I could find so much out that has been a puzzl-" Ethro seemed to have realized he was just answering questions now. "Why are you asking me these questions? Is this an interview or some kind of study? Who are you?"<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;He seemed to be getting irritated, so I slid a phone which hadn't been invented yet, and wouldn't have been if I hadn't done this, and a few pieces of hardware and cables. There was also foreign looking crystal which happened to be a very crucial part of making time travel happen.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Here's your materials, go for it," I said with a smile. Ethro looked at the phone finding no brand marking or anything. He looked up at me, then looked  back down at the crystal and then looked at me. It didn't seem like he trusted it all.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Why are you giving this to me?" Ethro seemed pretty confused right now. Rightfully so, too. I was giving him this technology and knowledge and I didn't even bother to justify why.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"I'm giving this to you because it's very important to..." I got quieter. Ethro leaned in as I talked. "... all of our futures." He didn't seem to believe me. He sat up straight, and looked me right in the eyes.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"You're insane." Ethro said. I let out a slow breathe and picked up the phone, pulling it's back off and putting the pieces in.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"So you want proof? I can give you proof. Think back about... 7 minutes ago." I messed with the phone, set it to 8 minutes ago and hit Travel. I was 8 minutes in the past, so I walked past where Ethro and I were sitting. I made myself obvious enough where if he tried to remember he'd notice, then hit return on the phone. It didn't even look like I moved to Ethro.<br><Br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Well, I was talking to you, and..." He stopped for a second. Then looked at me. "So you've got a twin or something?" Ethro looked pretty mad now.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"How about you try it. That should prove it to you." I said awfully flatly. He took the phone from me and set it around 5 minutes in the future.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"I'll see you in five minutes then. If this even works." Ethro vanished directly after saying that. I pulled out a ton of napkins and scribbled some words on them, and set them all about the table in a checkerboard pattern. That itself took around 4 minutes. I sat back down, and sure enough, at exactly 5 minutes after he vanished he reappeared.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Looks like you added 5 minutes on to your life span," I said with a grin. He looked at the table, then the clock on the wall. He seemed suprised that it worked and rightfully so.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"That worked! How did that work?" Ethro was pretty much shouting at this point. He must of noticed since he slid down into his seat since he had shot up. In a normal voice, Ethro asked, "How does it work?"<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;I slid a notebook across the table to him. "It's all written in this. This notebook which you own." I smiled. He didn't seem to understand why he was getting all of this, like he said earlier. I came up with a reason that wasn't entirely lying, but it wasn't entirely true either.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"So... Why are you giving me all of this technology? Why don't you just keep it yourself?" Ethro was obviously puzzled. I finished throwing together my reason just in time.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"You're a great scientist and..." I saw he was paging through the notebook. He seemed to be understanding it, or just acting like it. I couldn't tell. "...you seem to get how it works. Plus, the name of your buisness fits the acronym for Fast Travel Module Devices perfectly!"<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"That's a really convenient coincidence." Ethro looked pretty happy. I knew it hadn't been a coincidence, but he really didn't need to know that. "So I own all of this?" He made a motion around the notebook and device.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Yeah. You own every bit of it." I relaxed in my seat, but found that I didn't trust Ethro 100% with time travel yet. I knew he wouldn't destroy time but I didn't want to deal with any screw-ups. "Make sure you don't go too far in the future. Too far being more than 2 hours."<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"That seems like a random time. Why can't I go further than that?" Ethro asked.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"The device can't send you back if it's longer than 2 hours ahead. Too long of a leap for it since it's in early stages." I said. I knew I was forgetting another limitation to it that he'd have to fix, but I'd have to tell him later. Hopefully he didn't discover it himself.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Alright, well, I'll have to fix that." He smiled. Checking his watch, it looked like he remembered something important as far as I could tell. "I've gotta go, I'll see ya around!"<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Bye." I watched him leave. The moment he was out the door I remembered the other limitation. You couldn't go back in time without the device sending you who-knows-where in time. I jumped up, ran to the door and looked outside. I saw him hit something on the phone and he vanished.<br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;By not telling him that, I just made what should have been something short and easy into probably a day or two of "fun".
+        </p>
+    </div>
+    <div id="chapter2">
+        <h2 id="chapter1">Chapter 2 <span style="font-weight:normal">Error Code 2001</span></h2><hr>
+        <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;I ran to my hotel room on the other side of town. I had a huge supply of FTMD-related gadgets and parts there. 
+        </p>
+    </div>
+    <center>
+        <a class="trez" title="Trez was here" href="https://www.khanacademy.org/cs/go/5175888374267904">Travel</a>
+    </center>
+
+    </body>
+</html>
