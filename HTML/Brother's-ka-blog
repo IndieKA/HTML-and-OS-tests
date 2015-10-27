@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My Blog</title>
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    </head>
+    <style>
+        body {
+            font-family:'Roboto';
+        }
+        
+        h1 {
+            height:100px;
+            padding: 0;
+            font-size:3em;
+            line-height: 100px;
+            font-family:Roboto;
+            font-weight: 300;
+            background-color:rgb(102, 135, 255);
+            text-align:CENTER;
+            margin: -10px;
+            color:rgb(255, 255, 255);
+            border-top: 5px solid #1976d2; 
+        }
+        
+        #intro {
+            background-color : rgb(0, 150, 250);
+            border-radius : 5px;
+            color : white;
+            padding : 12px;
+        }
+        
+        /* --- Thanks to user @Kestrel1985 for the spacer! --- */
+        .spacer {
+                border-bottom : solid 2px rgb(220, 220, 220);
+        }
+        
+        h2 {
+            color: #fff;
+            font-weight: 300;
+            background: rgb(105, 225, 255);
+            margin: 36px;
+            padding: 13px;
+            text-align:CENTER;
+            font-size:2em;
+        }
+        
+        header p {
+            text-align:JUSTIFY;
+            margin: 36px;
+        }
+        
+        /* --- Credit to SparklyGem for the Advertisements Button ---*/
+        button {
+            background-color : rgb(0, 200, 200);
+            padding : 12px;
+            border-radius : 5px;
+            border : none;
+            font-size : 15px;
+            color : white;
+            font-family:'Roboto';
+        }
+        
+    </style>
+    <body>
+        <h1>My Blog</h1>
+        <br>
+        <div class = 'spacer'></div>
+        <br>
+        <button id="advertisements">Today's advertisements</button>
+        <br>
+        <br>
+        <div id = 'intro'>Hello KA Users!<p>This is my blog. Originally, the idea sprouted from school as we were required to create and update a blog over the course of 1 month, but I decided to create a side blog on Khan Academy, considering my brother @Indie did so too. Unlike him, I usually have a lot of time, meaning I can update this daily so-and-so.</p><p>My blog will have the following things:</p><ul><li>Announcements - usually updated daily, featuring new topics and of course, statements for the public.<li>Advertisements - you can simply ask in the Tips and Thanks to advertise your program. 3 PROGRAMS A WEEK! Remember that if your program does not get votes, or another program gets votes on my blog, it is not my fault.<li>Posts, of course! - These posts will usually be detailed, with a lot of information included. Sometimes I might make quick posts as to saying that I might not be here today, or something else happened. </ul><p>Subscribers:<li>Teddy L<li>Infinity (Jeff)<li>Aidan</p>Anyways, thanks for reading my blog! It really helps.</div>
+        
+        <h2>My first post</h2>
+        <header>
+            <p>Well, this is officially my first post! But, unlike most other blogs, I don't just go off with 1 sentence. Instead, I'll stay here for a bit, and talk about myself. Ready? Let's start.</p>
+            
+            <p>I'm a 13 year old student in 10th grade (I had skipped 2nd grade, the teachers in my school said I was ready for 3rd already) currently brushing up my trigonometry skills. You might be wondering, <em>trigonometry</em> in 10th grade? Yes, it sounds a bit wild, but that's because our school hadn't implemented trigonometry till 9th grade, and even then it was pretty basic. Luckily for me, I was quite good at it, so I am a bit advanced in the topic.</p>
+            
+            <p>Yes, @Indie (the one and only) is my brother. Cool, right? I was the one who actually got him into programming, and so I decided to teach him JavaScript. Most of his techniques and tricks came from me (collision detection, OOP, arrays, et cetera) but he got most of the popularity. Personally, I'm fine if he recieves votes because I have no care at all for Khan Academy's voting system. It's just a button that is used to drag people into a void of greed and power, and that too, what good do you get in votes? You might think, well of course, votes are nothing, so go tell that to Indie. He's <strong>crazy</strong> about votes. Sometimes he's like me, a loner, but sometimes when his program reaches the Hot List he goes wild.</p>
+            
+            <p>I've got a lot of hobbies beside programming. I love to play soccer with my neighbors and friends, and I'm a expert swimmer who's teaching youngsters how to swim. I started teaching since 9th grade, and for the past year it's been going very well. <p>
+            
+            <p>Some of the languages I know are JavaScript, Python, HTML, jSON, KAPJS, Linux (not much of it), Git (is that really a language? I have no idea! I think it's more of a console system), and SQL. I've been coding for about 4 years now (should be 6, but I spent most of my time teaching Indie) and I've collaborated well on projects.</p>
+            
+            <p>Thanks for spending your time reading this! But remember, you do not have to vote up. You are not obliged to, in any case, vote up my programs. Still, thanks for checking this out! <strong><em>Adiós , y gracias por comprobar hacia fuera mi blog !
+</em></strong>(not copied from Google Translate, I have a special keyboard.)</p>
+        </header>
+        
+        <h2>Second post!</h2>
+        <header>
+            <p>Heyo guys! Today I made my second post. I'm currently in school right now, so there's nothing much to talk about! The only thing is I showed my teacher my blog and he was very impressed. He gave me some constructive criticism that wasn't very helpful, but I'm still glad he liked it.</p>
+        </header>
+        <script>
+            var buttonEl = document.getElementById("advertisements");
+            var onButtonClick = function() {
+                alert("Advertisements\n\nAdvertisement: Check out this amazing replica of Instagram: https://www.khanacademy.org/computer-programming/instagram-of-ka/5199876083286016\n\nNOTE:\nYour advertisement can be here. Just tell me under Tips and Thanks, and I'll advertise your program(s) for free.");
+            };
+            buttonEl.addEventListener("click", onButtonClick);
+        </script>
+    </body>
+</html>
